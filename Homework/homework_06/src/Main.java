@@ -3,21 +3,23 @@ public class Main {
     public static void main(String[] args) {
 
         int i = 11;
-        int j = 9;
+        float result;
         //isEven(i);
         aLotOfStars("jshdfklj");
         nameFromColumn("Manchester City");
-        i = SummOfOddNum();
+        result = sumOfDepositeAll(3, 1000);
+        i = summOfOddNum();
         System.out.println(i);
+        System.out.println(result);
 
     }
 /*  1) Дано слово. Добавить к нему в начале и конце столько звездочек, сколько букв в этом слове.*/
 
     public static void aLotOfStars(String word) {
-        int i;
         int count = word.length();
         String resultWord="";
-        for (int j = 0; j < 2; j++) {
+        int i, j;
+        for (j = 0; j < 2; j++) {
             for (i = 0; i < count; i++) {
                 resultWord = resultWord + '*';
             }
@@ -43,7 +45,7 @@ public class Main {
     }
     /* 3) Найти сумму положительных нечетных чисел, меньших 50.*/
 
-    public static int SummOfOddNum() {
+    public static int summOfOddNum() {
         int result = 0;
         for(int k = 50; k > 0; k--) {
             if (k%2 == 1){
@@ -53,29 +55,44 @@ public class Main {
         return result;
     }
 
-   /* 4) Вася открыл счет в банке 1 марта, вложив 1000 грн. Через каждый месяц размер вклада увеличивается на 2% от имеющейся суммы. Определить:
+   /* 4) Вася открыл счет в банке 1 марта, вложив 1000 грн. Через каждый месяц размер вклада увеличивается на 2% от
+   имеющейся суммы. Определить:
     а) прирост суммы вклада за каждый месяц с 1-го марта до конца года;
     б) сумму вклада через: полгода, 2 года, 5 лет.*/
-   /* ------------------------------------------------------------------------
-    а) прирост суммы вклада за каждый месяц с 1-го марта до конца года;*/
-   public static int sumOfDeposite(int day, int year, String month) {
-       int i;
-       int count = word.length();
-       String resultWord="";
-       for (int j = 0; j < 2; j++) {
-           for (i = 0; i < count; i++) {
-               resultWord = resultWord + '*';
-           }
-           i = 0;
-           if (j == 0) {
-               resultWord = resultWord + word;
-           }
+   /* -----------------------------------------------------------------------------------------
+    а) общий прирост суммы вклада за каждый месяц с 1-го марта до конца года;*/
+   public static float sumOfDepositeAll(int month, float startSum) {
+
+       float finalSum = startSum;
+       for (int i = 0; i < (12-month); i++){
+           finalSum = finalSum + ((finalSum*2)/100);
        }
-       System.out.println(resultWord);
+      return (finalSum - startSum);
    }
+    /* ---------------------------------------------------------------------------------------
+    а) помесячный прирост суммы вклада за каждый месяц с 1-го марта до конца года;*/
+    public static float[] sumOfDepositePerMonth(int month, float startSum) {
 
+        float[] increaseSumPerMonth = new float[12 - month];
+        float finalSum = startSum;
+        for (int i = 1; i <= (12 - month); i++) {
+            increaseSumPerMonth[i] = startSum + ((startSum * 2) / 100);
+            startSum = increaseSumPerMonth[i];
+        }
+        return increaseSumPerMonth;
+    }
 
+    /*б) сумму вклада через: полгода, 2 года, 5 лет.*/
+    public static float sumOfDeposite(int month, int termPerMonth, float startSum) {
 
+        float[] increaseSumPerMonth = new float [termPerMonth];
+        float finalSum = startSum;
+        for (int i = 0; i < termPerMonth; i++){
+            finalSum = finalSum + ((finalSum*2)/100);
+        }
+        return (finalSum - startSum);
+    }
+/* ------------------------------------------------------------------------------*/
 
 }
 
