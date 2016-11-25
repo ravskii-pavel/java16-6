@@ -4,13 +4,15 @@ public class Main {
 
         int i = 11;
         float result;
-        //isEven(i);
-        aLotOfStars("jshdfklj");
-        nameFromColumn("Manchester City");
-        result = sumOfDepositeAll(3, 1000);
+        //float[] sum;
+        aLotOfStars("java");
+        nameFromColumn("Manchester");
+        result = sumIncrease(3, 1000);
         i = summOfOddNum();
-        System.out.println(i);
-        System.out.println(result);
+        sumOfDepPerMonth(3, 1000);
+        sumOfDep(60, 1000);
+        //System.out.println(i);
+        //System.out.println(result);
 
     }
 /*  1) Дано слово. Добавить к нему в начале и конце столько звездочек, сколько букв в этом слове.*/
@@ -61,38 +63,63 @@ public class Main {
     б) сумму вклада через: полгода, 2 года, 5 лет.*/
    /* -----------------------------------------------------------------------------------------
     а) общий прирост суммы вклада за каждый месяц с 1-го марта до конца года;*/
-   public static float sumOfDepositeAll(int month, float startSum) {
+   public static float sumIncrease(int month, float startSum) {
 
        float finalSum = startSum;
-       for (int i = 0; i < (12-month); i++){
+       int term = 12 - month;
+       for (int i = 1; i <= term; i++){
            finalSum = finalSum + ((finalSum*2)/100);
        }
+      System.out.println("Общий прирост суммы вклада до конца года: " + (finalSum - startSum));
       return (finalSum - startSum);
    }
     /* ---------------------------------------------------------------------------------------
     а) помесячный прирост суммы вклада за каждый месяц с 1-го марта до конца года;*/
-    public static float[] sumOfDepositePerMonth(int month, float startSum) {
+    public static float[] sumOfDepPerMonth(int month, float startSum) {
 
-        float[] increaseSumPerMonth = new float[12 - month];
+        int term = 12 - month;
+        float[] increaseSumPerMonth = new float[term];
         float finalSum = startSum;
-        for (int i = 1; i <= (12 - month); i++) {
-            increaseSumPerMonth[i] = startSum + ((startSum * 2) / 100);
-            startSum = increaseSumPerMonth[i];
+        for (int i = 0; i < term; i++) {
+            increaseSumPerMonth[i] = finalSum + ((finalSum * 2)/100);
+            finalSum = increaseSumPerMonth[i];
+            System.out.println("Прирост суммы вклада за " + (i+1) + " месяц: " + (finalSum - startSum));
         }
         return increaseSumPerMonth;
     }
 
     /*б) сумму вклада через: полгода, 2 года, 5 лет.*/
-    public static float sumOfDeposite(int month, int termPerMonth, float startSum) {
-
-        float[] increaseSumPerMonth = new float [termPerMonth];
-        float finalSum = startSum;
-        for (int i = 0; i < termPerMonth; i++){
-            finalSum = finalSum + ((finalSum*2)/100);
-        }
-        return (finalSum - startSum);
-    }
 /* ------------------------------------------------------------------------------*/
+    public static float[] sumOfDep(int countOfMonth, float startSum) {
+        int i;
+        float[] increaseSumPerMonth = new float[countOfMonth];
+        float finalSum = startSum;
+        for (i = 0; i < countOfMonth; i++) {
+            increaseSumPerMonth[i] = finalSum + ((finalSum * 2)/100);
+            finalSum = increaseSumPerMonth[i];
+        }
+        System.out.println("Сумма вклада через полгода: " + increaseSumPerMonth[5]);
+        System.out.println("Сумма вклада через 2 года: " + increaseSumPerMonth[23]);
+        System.out.println("Сумма вклада через 5 лет: " + increaseSumPerMonth[59]);
+        return increaseSumPerMonth;
+    }
 
+    /* 5) Определить, войдет ли в конверт с внутренними размерами a и b мм прямоугольная открытка размером с и d мм.
+    Для размещения открытки в конверте необходим зазор в 1 мм с каждой стороны.*/
+    /*------------------------------------------------------------------------------------*/
+    public static boolean envelope(int envelopeA, int envelopeB, int cardC, int cardD){
+        if ((envelopeA-1) >= cardC && (envelopeB-1) >= cardD){
+            return true;
+        }
+        return false;
+    }
+    /* 6) Даны два различных вещественных числа. Определить наибольшее из них применив
+    один неполный условный оператор.*/
+    /*------------------------------------------------------------------------------------*/
+    public static float biggestNum(float num1, float num2) {
+        if (num1 < num2) {
+            return num2;
+        }
+        return num1;
+    }
 }
-
