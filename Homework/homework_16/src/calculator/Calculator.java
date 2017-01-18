@@ -29,6 +29,7 @@ public class Calculator {
         MainPanel mainPanel = new MainPanel();
         frame.add(mainPanel, borderLayout.WEST);
         frame.setVisible(true);
+		frame.setResizable(false);
         textField.setFocusable(false);
     }
 }
